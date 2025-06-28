@@ -1,8 +1,11 @@
 package ticTacToe.component;
 
 import ticTacToe.gui.Paintable;
+import ticTacToe.gui.util.MouseListenerAdapter;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class Button implements Paintable {
 
@@ -52,4 +55,34 @@ public class Button implements Paintable {
     public void paint(Graphics g) {
         g.drawRect( position.x,position.y,dimension.width,dimension.height);
     }
+    
+    public boolean isOver(Point point) {
+		
+		int xLeft =  this.position.x;
+		int yTop =  this.position.y;
+		int xRight = xLeft + this.width();
+		int yButton = yTop + this.height();
+		
+		return ( (point.x > xLeft && point.x < xRight) &&
+				 (point.y > yTop && point.y < yButton) );
+		
+	}
+    
+    public MouseListener mouseListener() {
+    	
+		return new MouseListenerAdapter() {
+			
+			@Override
+			public void mouseClicked( MouseEvent me ) {
+				
+				if( !isOver( me.getPoint() ))
+					return;
+				
+				System.out.println("Teste");
+			}
+		};
+    	
+    }
+    
+    
 }
