@@ -4,7 +4,7 @@ import java.awt.Button;
 
 import ticTacToe.gui.MainWindow;
 
-public class AppButtonMouseClickTest {
+public class AppButtonMouseClickTest{
 
 	public static void main(String[] args) {
 		
