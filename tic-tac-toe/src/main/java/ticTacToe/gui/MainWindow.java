@@ -78,6 +78,11 @@ public class MainWindow
     {
     	panel.removeMouseMotionListener(listener);
     }
+
+	public void add(Table table) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 
