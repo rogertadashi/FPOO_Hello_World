@@ -1,7 +1,7 @@
 package appTest;
 
-import ticTacToe.component.Button;
-import ticTacToe.gui.window.MainWindow;
+import java.awt.Button;
+import ticTacToe.gui.MainWindow;
 
 public class AppButtonClickTest {
 	

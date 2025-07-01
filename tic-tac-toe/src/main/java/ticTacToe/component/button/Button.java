@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class Button extends AbstractComponent implements Paintable {
 
-    private boolean mouseOver = false;
+    protected boolean mouseOver = false;
 
     public Button() {
         super();
@@ -43,7 +43,7 @@ public class Button extends AbstractComponent implements Paintable {
         doMouseOverDecoration(g);
     }
 
-    private void doMouseOverDecoration(Graphics g) {
+    protected void doMouseOverDecoration(Graphics g) {
         if (mouseOver) {
             Color originalColor = g.getColor();
             g.setColor(Color.RED);
