@@ -4,9 +4,11 @@ import ticTacToe.component.AbstractComponent;
 import ticTacToe.component.button.ImageButton;
 import ticTacToe.model.Mark;
 import ticTacToe.model.table.ReadOnlyTableModel;
-
+import java.util.List;
+import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class TableView extends AbstractComponent {
 
@@ -15,26 +17,22 @@ public class TableView extends AbstractComponent {
     private ImageButton[][] table = new ImageButton[3][3];
     private ReadOnlyTableModel tableModel;
 
-
     public TableView() {
         super();
         this.dimension = new Dimension(100, 100);
         fillTable();
     }
 
-
     public TableView(ImageIcon icon) {
         this();
         this.icon = icon;
     }
-
 
     public TableView(int x, int y, int width, int height, ImageIcon icon) {
         super(x, y, width, height);
         this.icon = icon;
         fillTable();
     }
-
 
     private void fillTable() {
         int cellWidth = (width() - 20) / 3;
@@ -66,6 +64,17 @@ public class TableView extends AbstractComponent {
         this.tableModel = tableModel;
     }
 
+    /**
+     * Sobrescreve o comportamento de movimento do mouse para repassar aos botões internos.
+     */
+  
+    protected void onMouseMove(MouseEvent me) {
+        for (int lin = 0; lin < table.length; lin++) {
+            for (int col = 0; col < table[lin].length; col++) {
+                table[lin][col].mouseMotionListener().mouseMoved(me);
+            }
+        }
+    }
 
     private void paintChildren(Graphics g) {
         if (tableModel == null) {
@@ -80,7 +89,24 @@ public class TableView extends AbstractComponent {
             }
         }
     }
+    
+  //--Observer Pattern--------------------------------------------------
 
+    List cellClickListeners = new ArrayList<>();
+
+    public void addCellClickListener(CellClickListener listener) {
+        cellClickListeners.add(listener);
+    }
+
+    public void removeCellClickListener(CellClickListener listener) {
+        cellClickListeners.remove(listener);
+    }
+
+    private void dispatchCellClickEvent(int lin, int col) {
+        CellClickEvent event = new CellClickEvent(lin, col);
+        cellClickListeners.forEach(listener -> listener.onClick(event));
+    }
+    
 
     @Override
     public void paint(Graphics g) {
@@ -99,5 +125,7 @@ public class TableView extends AbstractComponent {
 
         paintChildren(g);
     }
-
+    
+    
+    
 }

@@ -9,21 +9,25 @@ import ticTacToe.model.table.TableModel;
 import ticTacToe.model.Mark;
 import ticTacToe.model.table.SimpleTableModel;
 
-public class AppTableModelTableViewTest {
+public class AppMVCTest {
 
     TableModel tableModel = new SimpleTableModel();
     MainWindow window = new MainWindow();
     TableView tableView = createTableView();
 
-    public AppTableModelTableViewTest() {
+    public AppMVCTest() {
+    	
         tableView.setTableModel(tableModel);
-
+        tableView.addCellClickListener((cell)->
+        		tableModel.setMark(cell.lin, cell.col,
+        				Math.random() > 0.5 ? Mark.X : Mark.O));
+        
         ImageIcon icon = loadImage("background.jpg");
         window.setBackground(icon);
-
         window.add(tableView);
         
         window.addMouseMotionListener(tableView.mouseMotionListener());
+        window.addMouseListener(tableView.mouseListener());
     }
 
     private ImageIcon loadImage(String fileName) {
@@ -67,7 +71,7 @@ public class AppTableModelTableViewTest {
     }
 
     public static void main(String[] args) throws Exception {
-        AppTableModelTableViewTest app = new AppTableModelTableViewTest();
+        AppMVCTest app = new AppMVCTest();
         app.play();
     }
 }

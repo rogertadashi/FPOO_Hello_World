@@ -88,17 +88,21 @@ public abstract class AbstractComponent implements Paintable{
 			@Override
 			public void mouseMoved(MouseEvent me) {
 				
-				if( isOver( me.getPoint() ))
-					mouseOver = true;
-				else
-					mouseOver = false;
+				mouseOver = isOver( me.getPoint() );
+				onMouseClick(me);
 			}
 		};
 	}
 	
 	//--polymorphic methods ---------------------------------------------
+	@Override
 	protected void onMouseClick(MouseEvent me) {
-		// The standard behavior is to do absolutely nothing
+	    for (int lin = 0; lin < table.length; lin++) {
+	        for (int col = 0; col < table[lin].length; col++) {
+	            if (table[lin][col].isOver(me.getPoint()))
+	                dispatchCellClickEvent(lin, col);
+	        }
+	    }
 	}
 
 	public void paint() {
