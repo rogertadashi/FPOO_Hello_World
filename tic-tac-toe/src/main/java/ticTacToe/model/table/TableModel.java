@@ -7,4 +7,5 @@ public interface TableModel extends ReadOnlyTableModel{
 	void setMark(int lin, int col , Mark mark);
 	void reset();
 	Mark getMark(int lin, int col);
+	
 }

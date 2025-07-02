@@ -62,6 +62,7 @@ public class Button extends AbstractComponent implements Paintable {
         };
     }
 
+    // Classe de evento
     public final class ButtonClickEvent {
         public final Button source;
         public final MouseButton mouseButton;
